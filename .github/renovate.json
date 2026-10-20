@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "automerge": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-release-attachments",
+      "depNameTemplate": "openclaw/wacli",
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
+      ],
+      "matchStrings": [
+        "ARG WACLI_SHA256=(?<currentDigest>[0-9a-f]{64})\\nARG WACLI_VERSION=(?<currentValue>\\S+)"
+      ]
+    }
+  ],
+  "enabledManagers": [
+    "custom.regex",
+    "dockerfile",
+    "github-actions"
+  ],
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "group:all"
+  ],
+  "platformAutomerge": false,
+  "semanticCommits": "enabled"
+}
