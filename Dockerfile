@@ -1,7 +1,7 @@
-FROM debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f AS download
+FROM debian:trixie-slim@sha256:f6b08b09a05725f9431502d3b5714f5c4576e82c1a84fa1debe0c24a7e0c3ec4 AS download
 
-ARG WACLI_SHA256=747745eac681e7102ccb714f46566b8260a4ec02debc86b6c27c8dfd0e40808a
-ARG WACLI_VERSION=v0.22.0
+ARG WACLI_SHA256=53bbb450f0a47e3b080173d61fd6cec72241d8065bee17e592275983b7abd281
+ARG WACLI_VERSION=v0.25.1
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates curl \
@@ -10,7 +10,7 @@ RUN apt-get update \
     && mkdir /out \
     && tar -xzf /tmp/wacli.tar.gz -C /out ./wacli ./LICENSE
 
-FROM debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+FROM debian:trixie-slim@sha256:f6b08b09a05725f9431502d3b5714f5c4576e82c1a84fa1debe0c24a7e0c3ec4
 
 LABEL org.opencontainers.image.description="Prebuilt wacli with persistent WhatsApp sessions for Railway" \
       org.opencontainers.image.source="https://github.com/hosmelq/railway-wacli-template"
