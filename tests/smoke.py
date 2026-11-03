@@ -89,12 +89,19 @@ try:
         "-c",
         "printf persisted > /data/store/persistence.txt",
     )
+    docker("exec", name, "touch", "/data/store/root-owned")
     docker("stop", "--time", "5", name)
     containers.remove(name)
 
     name = start("second")
     assert (
         docker("exec", name, "cat", "/data/store/persistence.txt").stdout == "persisted"
+    )
+    assert (
+        docker(
+            "exec", name, "stat", "-c", "%u:%g", "/data/store/root-owned"
+        ).stdout.strip()
+        == "10001:10001"
     )
     status = json.loads(
         docker("exec", name, "wacli-run", "--json", "auth", "status").stdout
